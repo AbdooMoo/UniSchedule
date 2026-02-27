@@ -20,10 +20,7 @@
       <strong>Student-Centric Workflow:</strong> The primary user experience focuses on the student's role within the system. Instead of building a schedule from scratch, students can review the pre-generated timetable options and select the one that is most convenient for their personal routine.
     </li>
     <li>
-      <strong>System Analysis Application:</strong> The project practically applies System Analysis and Design and Software Engineering principles to map out user roles (specifically the student's interaction with the system) and data flow between the React frontend and the Node.js/MongoDB backend.
-    </li>
-  </ul>
-
+      
   <h3>Current Status:</h3>
   <ul>
     <li>
