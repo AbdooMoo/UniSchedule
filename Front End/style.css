@@ -1,0 +1,420 @@
+:root {
+  --primary-green: #1a5e4d;
+  --primary-green-dark: #124a3c;
+  --primary-light-green: #34a87c;
+  --background-light: #fcfcfc;
+  --text-dark: #333;
+  --text-light: #666;
+  --border-color: #ddd;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.main-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.left-panel {
+  flex: 1;
+  background-color: var(--primary-green);
+  color: white;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-image:
+    linear-gradient(#ffffff0a 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff0a 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.brand-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  opacity: 0;
+  animation: fadeInDown 0.8s ease-out forwards;
+}
+
+.logo-box {
+  background-color: white;
+  color: var(--primary-green);
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.brand-header h1 {
+  display: inline-block;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: default;
+}
+
+.brand-header h1:hover {
+  transform: translateY(-8px) scale(1.03);
+  text-shadow: 0 10px 20px rgba(26, 94, 77, 0.2);
+  color: var(--primary-light-green);
+}
+
+.brand-desc {
+  font-size: 16px;
+  margin-top: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  opacity: 0;
+  animation: fadeInDown 0.8s ease-out 0.2s forwards;
+}
+
+.timetable-grid {
+  display: grid;
+  grid-template-columns: 45px repeat(5, 1fr);
+  grid-template-rows: 35px repeat(8, 45px) 20px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 15px 15px 0px 5px;
+  margin-top: 30px;
+  position: relative;
+  background-size: 100% 45px;
+  background-position: 0 50px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px);
+}
+
+.grid-cell.header {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.grid-cell.time {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 11px;
+  text-align: right;
+  padding-right: 8px;
+  position: relative;
+  top: -7px;
+}
+
+.course-block {
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 2px 4px;
+  z-index: 2;
+  opacity: 0;
+  transform: rotateX(-90deg) scale(0.9);
+  animation: courseFlipPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: calc(var(--order) * 0.1s);
+}
+
+.timetable-grid div:not(:empty) {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 1;
+}
+
+.timetable-grid div:not(:empty):hover {
+  transform: perspective(500px) rotateX(10deg) rotateY(-5deg) translateY(-10px);
+  z-index: 100;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.timetable-grid div:not(:empty)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent);
+  transform: skewX(-25deg);
+  transition: 0.5s;
+}
+
+.timetable-grid div:not(:empty):hover::before {
+  left: 125%;
+}
+
+.c-dark {
+  background-color: #2c7c69;
+}
+
+.c-light {
+  background-color: var(--primary-light-green);
+}
+
+.feature-tags {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.tag {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.tag:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+
+.right-panel {
+  flex: 1;
+  background-color: var(--background-light);
+  padding: 60px 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(rgba(255, 255, 255, 0.9)),
+  url("./form.bg.2.png") no-repeat center;
+  background-size: cover;
+
+  
+}
+
+.right-panel h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out 0.3s forwards;
+  display: inline-block;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: default;
+  
+
+}
+
+
+.right-panel h2:hover {
+  transform: translateY(-8px) scale(1.03);
+  text-shadow: 0 10px 20px rgba(26, 94, 77, 0.2);
+  color: var(--primary-light-green);
+}
+
+.login-header p {
+  color: var(--text-light);
+  font-size: 15px;
+  margin-bottom: 40px;
+}
+
+.label-with-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.forgot-password {
+  font-size: 12px;
+  color: var(--primary-green);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.input-group {
+  margin-bottom: 22px;
+}
+
+.input-group label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-group input:hover {
+  border-color: var(--primary-green);
+  box-shadow: 0 0 12px rgba(26, 94, 77, 0.25);
+}
+
+.input-group input:focus {
+  border-color: var(--primary-green);
+  box-shadow: 0 0 15px rgba(26, 94, 77, 0.4);
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+.sign-in-btn {
+  width: 100%;
+  background-color: var(--primary-green);
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.sign-in-btn:hover {
+  background-color: var(--primary-green-dark);
+  transform: translateY(-2px);
+}
+
+.sign-in-btn span {
+  transition: transform 0.3s ease;
+}
+
+.sign-in-btn:hover span {
+  transform: translateX(5px);
+}
+
+
+
+.request-access {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 14px
+}
+
+.request-access a {
+  color: var(--primary-green);
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.request-access a:hover {
+  color: var(--primary-green-dark);
+}
+
+.request-access a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--primary-green-dark);
+  transition: width 0.3s ease;
+}
+
+.request-access a:hover::after {
+  width: 100%;
+}
+
+.terms-text {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-light);
+  margin-top: 40px;
+}
+
+.terms-text a {
+  color: var(--text-light);
+  text-decoration: underline;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.terms-text a:hover {
+  color: var(--primary-green);
+  transform: scale(1.05);
+  text-shadow: 0 0 8px rgba(26, 94, 77, 0.4);
+}
+
+@keyframes courseFlipPop {
+  to {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 992px) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  .left-panel,
+  .right-panel {
+    padding: 40px 20px;
+  }
+}
