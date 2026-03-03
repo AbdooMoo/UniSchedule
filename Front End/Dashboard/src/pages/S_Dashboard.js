@@ -25,7 +25,7 @@ const S_Dashboard = () => {
                         <FaUser className="icon"/>Profile</button>
                     <button style={{ opacity: 0.5 }} title="Viev your class schedules">
                         <FaCalendarAlt className="icon"/>My Schedule</button>
-                    <button style={{ marginTop: 'auto', color: '#d74141' }}>
+                    <button >
                         <FaSignOutAlt className="icon"/>Logout
                     </button>
                 </nav>

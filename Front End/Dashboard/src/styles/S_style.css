@@ -2,36 +2,41 @@
     display: flex;
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #2c3e50;
+    background-color: #2c7c69;
     margin: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.05)1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.05)1px,transparent 1px);
+    background-size: 30px 30px;
+
 }
 
 .sidebar {
     width: 250px;
-    background-color: #2c3e50;
+    background-color: #2c7c69;
     color: white;
     display: flex;
     flex-direction: column;
     padding: 20px;
     position: relative;
     z-index: 10;
+    background-image: linear-gradient(rgba(255,255,255,0.05)1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.05)1px,transparent 1px);
+    background-size: 30px 30px;
 }
 
 .sidebar h2 {
     text-align: center;
-    color: #bab9df;
+    color: #fafafc;
     margin-bottom: 30px;
 }
 
 .sidebar button {
     background: none;
     border: none;
-    color: white;
+    color: wheat;
     text-align: left;
     padding: 15px;
     width: 100%;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 20px;
     border-radius: 15px;
     transition: background 0.3s;
     letter-spacing: 1px;
@@ -44,13 +49,13 @@
 }
 
 .sidebar button .icon {
-    font-size: 15px;
+    font-size: 18px;
     color: white;
     transition: color 0.3s;
 }
 
 .sidebar button:hover {
-    background-color: #34495e;
+    background-color: black;
     color: #04b591;
     transform: translateY(-3px);
 }
