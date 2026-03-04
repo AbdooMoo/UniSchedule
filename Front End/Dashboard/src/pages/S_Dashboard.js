@@ -10,8 +10,6 @@ const S_Dashboard = () => {
 
     return (
         <div className="dashboard-container">
-            
-           {/*1*/}
             <div className="sidebar">
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '30px' }}>
                   
@@ -30,8 +28,6 @@ const S_Dashboard = () => {
                     </button>
                 </nav>
             </div>
-
-            {/*2*/}
             <div className="main-content">
                 
                 <div className="background-overlay"></div>

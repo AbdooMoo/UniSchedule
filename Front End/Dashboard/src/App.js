@@ -1,7 +1,6 @@
 import React from 'react';
-import StudentDashboard from './pages/S_Dashboard'; // بننادي على صفحتك
-import './styles/S_style.css'; // بننادي على استايلاتك
-
+import StudentDashboard from './pages/S_Dashboard'; 
+import './styles/S_style.css';
 function App() {
   return (
     <div className="App">
@@ -9,5 +8,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
