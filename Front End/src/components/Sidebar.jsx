@@ -1,109 +1,73 @@
-import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import {
-  LayoutDashboard, Users, BookOpen, Building2,
-  LogOut, GraduationCap,
-  Settings, ChevronDown, UserCheck, Shield
-} from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { LayoutDashboard, Users, GraduationCap, BookOpen, LogOut, ShieldCheck, DoorOpen } from "lucide-react";
 
 export default function Sidebar() {
-  const navigate = useNavigate();
   const location = useLocation();
-  const [userMenuOpen, setUserMenuOpen] = useState(true);
+  const navigate = useNavigate();
+  const [adminName, setAdminName] = useState("Admin User");
 
-  const isActive = (path) => location.pathname === path;
+  useEffect(() => {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const user = JSON.parse(userData);
+      if (user.name) setAdminName(user.name);
+    }
+  }, []);
 
-  const navItem = (icon, label, path) => (
-    <div
-      key={label}
-      onClick={() => navigate(path)}
-      style={{
-        display: "flex", alignItems: "center", gap: "10px",
-        padding: "10px 12px", borderRadius: "8px", cursor: "pointer",
-        marginBottom: "4px",
-        backgroundColor: isActive(path) ? "#145040" : "transparent",
-        color: isActive(path) ? "white" : "#a8d5c2",
-      }}
-    >
-      {icon}
-      <span style={{ fontSize: "14px" }}>{label}</span>
-    </div>
-  );
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate("/", { replace: true });
+  };
+
+  const menuItems = [
+    { path: "/admin", name: "Dashboard", icon: LayoutDashboard },
+    { path: "/admin/students", name: "Students", icon: Users },
+    { path: "/admin/teachers", name: "Teachers", icon: GraduationCap },
+    { path: "/admin/admins", name: "Admins", icon: ShieldCheck },
+    { path: "/admin/courses", name: "Courses", icon: BookOpen },
+    { path: "/admin/rooms", name: "Rooms", icon: DoorOpen },
+  ];
 
   return (
-    <div style={{
-      width: "280px", minHeight: "100vh", backgroundColor: "#1a5e4d",  
-      display: "flex", flexDirection: "column", color: "white", fontFamily: "sans-serif"
-    }}>
-      {/* Logo */}
-      <div style={{ padding: "20px 16px", borderBottom: "1px solid #1f6e5a" }}>  
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <div style={{
-            width: "40px", height: "40px", borderRadius: "50%",
-            backgroundColor: "#145040", display: "flex", alignItems: "center", justifyContent: "center"  
-          }}>
-            <GraduationCap size={20} color="white" />
-          </div>
-          <div>
-            <div style={{ fontWeight: "700", fontSize: "16px" }}>UniSchedule</div>
-            <div style={{ fontSize: "12px", color: "#a8d5c2" }}>Admin Panel</div> 
-          </div>
-        </div>
+    <aside style={{ width: "260px", backgroundColor: "#1a2e1a", color: "white", minHeight: "100vh", display: "flex", flexDirection: "column", padding: "24px" }}>
+      <div style={{ fontSize: "22px", fontWeight: "700", marginBottom: "32px", display: "flex", alignItems: "center", gap: "10px" }}>
+        <GraduationCap size={28} />
+        UniSchedule
       </div>
 
-      {/* Nav */}
-      <nav style={{ flex: 1, padding: "16px 12px" }}>
-        {navItem(<LayoutDashboard size={18} />, "Dashboard", "/")}
-
-        {/* User Management */}
-        <div
-          onClick={() => setUserMenuOpen(!userMenuOpen)}
-          style={{
-            display: "flex", alignItems: "center", justifyContent: "space-between",
-            padding: "10px 12px", borderRadius: "8px", cursor: "pointer",
-            marginBottom: "4px", color: "#a8d5c2"  
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <Users size={18} />
-            <span style={{ fontSize: "14px" }}>User Management</span>
-          </div>
-          <ChevronDown size={14} style={{ transform: userMenuOpen ? "rotate(180deg)" : "none" }} />
-        </div>
-
-        {userMenuOpen && (
-          <div style={{ paddingLeft: "20px", marginBottom: "4px" }}>
-            {navItem(<GraduationCap size={16} />, "Students", "/students")}
-            {navItem(<UserCheck size={16} />, "Instructors", "/instructors")}
-            {navItem(<Shield size={16} />, "Admins", "/admins")}  {/* ← جديد */}
-          </div>
-        )}
-
-        {navItem(<BookOpen size={18} />, "Course Management", "/courses")}
-        {navItem(<Building2 size={18} />, "Room Management", "/rooms")}
+      <nav style={{ flex: 1 }}>
+        {menuItems.map((item) => (
+          <Link
+            key={item.path}
+            to={item.path}
+            style={{
+              display: "flex", alignItems: "center", gap: "12px", padding: "12px 16px", borderRadius: "8px",
+              textDecoration: "none", marginBottom: "8px", fontSize: "14px", fontWeight: "500",
+              color: location.pathname === item.path ? "white" : "#88b388",
+              backgroundColor: location.pathname === item.path ? "#2d6a2d" : "transparent",
+            }}
+          >
+            <item.icon size={20} />
+            {item.name}
+          </Link>
+        ))}
       </nav>
 
-      {/* User */}
-      <div style={{ padding: "16px", borderTop: "1px solid #1f6e5a" }}>  
-        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
-          <div style={{
-            width: "36px", height: "36px", borderRadius: "50%", backgroundColor: "#145040",  
-            display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: "700"
-          }}>AD</div>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontSize: "13px", fontWeight: "600" }}>Admin User</div>
-            <div style={{ fontSize: "11px", color: "#a8d5c2" }}>admin@unischedule.edu</div> 
+      <div style={{ marginTop: "auto", paddingTop: "20px", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
+          <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: "#2d6a2d", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "700" }}>
+            {adminName.charAt(0).toUpperCase()}
           </div>
-          <Settings size={16} color="#a8d5c2" />  
+          <div>
+            <div style={{ fontSize: "14px", fontWeight: "600" }}>{adminName}</div>
+            <div style={{ fontSize: "11px", color: "#88b388" }}>Administrator</div>
+          </div>
         </div>
-        <div style={{
-          display: "flex", alignItems: "center", gap: "8px", padding: "8px 12px",
-          borderRadius: "8px", border: "1px solid #1f6e5a", cursor: "pointer",  
-          color: "#a8d5c2", fontSize: "13px" 
-        }}>
-          <LogOut size={15} /> Sign Out
-        </div>
+        <button onClick={handleLogout} style={{ width: "100%", display: "flex", alignItems: "center", gap: "12px", padding: "10px", background: "none", border: "none", color: "#ff8888", cursor: "pointer", fontSize: "13px", textAlign: "left" }}>
+          <LogOut size={18} /> Sign Out
+        </button>
       </div>
-    </div>
+    </aside>
   );
 }
